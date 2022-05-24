@@ -34,7 +34,7 @@ def go_to():
     if chosen_action == 'Print todays news':
         return redirect(url_for('print_news'))
     if chosen_action == 'Search by key word':
-        return redirect(url_for('search-by-keyword'))
+        return redirect(url_for('keyword'))
     if chosen_action == 'Add all titles to database':
         return redirect(url_for('add_to_db'))
     if chosen_action == 'Plot words count':
@@ -60,10 +60,19 @@ def add_to_db():
     return render_template('succes_page.html', news_outlet=scraper, added=response['titles not in db'], existing=response['titles in db'])
 
 
-@app.route('/actions/search-by-keyword/<keyword>')
-def search_by_keyword(keyword: str):
-    response = commands.SearchKeyword().execute(presentation.get_scraper(), keyword)
-    return jsonify({'message': response})
+@app.route('/actions/keyword')
+def keyword():
+    subtitle = 'Enter keyword you want to search'
+    return render_template('search.html', subtitle=subtitle)
+
+
+@app.route('/actions/keyword/search-by-keyword/', methods=['POST'])
+def search_by_keyword():
+    req = request.form
+    keyword = req['keyword']
+    scraper = presentation.make_scraper(session['scraper'])
+    news_list = commands.SearchKeyword().execute(scraper, keyword)
+    return render_template('print_news.html', news=news_list)
 
 
 @app.route('/actions/plot')

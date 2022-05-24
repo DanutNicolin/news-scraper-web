@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block page_title %}
+Search by keyword
+{% endblock %}
+
+{% block content %}
+    <img src="{{ url_for('static', filename='assets/News.png')}}">
+
+    <h3>{{subtitle}}</h3>
+
+    <form action="/actions/keyword/search-by-keyword" method="POST">
+        <label for="keyword"></label><br>
+        <input type="text" name="keyword" value=""><br>
+    </form>
+
+{% endblock %}
