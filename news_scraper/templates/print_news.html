@@ -1,0 +1,13 @@
+{% extends 'base.html'%}
+
+{% block page_title %}
+Todays News
+{% endblock %}
+
+{% block content%}
+    <ul>
+        {%for name in news%}
+        <li>{{ name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock%}

@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+
+
+{% block page_title %}
+News scraper
+{% endblock %}
+
+{% block content%}
+    <img src="{{ url_for('static', filename='assets/News.png')}}">
+    <h2> {{title}}</h2>
+    <h3>{{subtitle}}</h3>
+
+    <form id="form" class="contact" action="/actions" method="POST">
+
+        <ul class="buttons">
+            {%for name in options%}
+            <li> <input type = "submit" name ='option' value="{{name}}"/> </li>
+            {% endfor %}
+        </ul>
+
+    </form>
+{% endblock%}

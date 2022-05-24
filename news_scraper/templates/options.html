@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block page_title%}
+Document
+{% endblock %}
+
+{% block content %}
+    <ul>
+        {%for name in scrapers%}
+        <li>{{ name }}</li>
+        {% endfor %}
+    </ul>
+
+    <form action="">
+        <label for="option"> Enter option: </label>
+        <input type="text">
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

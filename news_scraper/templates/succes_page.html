@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+
+
+{% block page_title %}
+{{ news_outlet }}
+{% endblock %}
+
+{% block content%}
+    <h3> Titles added in db: {{ added }} </h3>
+    <h3> Titles already in db: {{ existing }} </h3>
+    <a href="/" class="goback"> Go home</a>
+{% endblock%}

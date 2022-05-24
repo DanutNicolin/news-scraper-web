@@ -1,0 +1,30 @@
+body {
+    background-color: #212121;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+
+
+.wrapper.buttons {
+    color: white;
+    text-align: left;
+}
+
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+  }
+  
+  a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+.goback{
+    background-color: #ffffff;
+    color:rgb(0, 0, 0)
+}
