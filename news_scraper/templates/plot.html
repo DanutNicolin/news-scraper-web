@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+
+{% block page_title %}
+{{ page_title }}
+{% endblock %}
+
+{% block content %}
+    <img src="{{ url_for('static', filename='assets/News.png')}}">
+
+
+    {{ plot_result }}
+
+    <a href="/" class="goback"> Go home</a>
+
+{% endblock %}

@@ -7,6 +7,9 @@ from matplotlib import pyplot as plt
 from operator import itemgetter
 from news_scraper.src.utils import clear_screen
 import re
+import base64
+from io import BytesIO
+from matplotlib.figure import Figure
 
 
 digi24 = Digi24()
@@ -30,14 +33,32 @@ def get_option_choice(options: dict):
 
 
 def get_date():
+    options = {'A': '- aaaCurent date', 'B': '- Input date', 'C': '- All the dates'}
+    for option in options.items():
+        print(option[0], option[1])
+    print('')
+
+    choice = get_option_choice(options)
+    clear_screen()
+
+    if choice == '- All the dates':
+        return None
+    if choice == '- Curent date':
+        return curent_date
+    if choice == '- Input date':
+        date = str(input('Input date (dd.mm.yyyy): '))
+        return date
+
+
+def get_date_flask():
     options = {'A': '- Curent date', 'B': '- Input date', 'C': '- All the dates'}
     for option in options.items():
         print(option[0], option[1])
     print('')
-        
+
     choice = get_option_choice(options)
     clear_screen()
-    
+
     if choice == '- All the dates':
         return None
     if choice == '- Curent date':
@@ -112,6 +133,7 @@ def parse_titles(titles: list):
 
 
 def get_top_words(words: dict, n: int):
+    n = int(n)
     top_n_words = dict(sorted(words.items(), key = itemgetter(1), reverse = True)[:n])
     return top_n_words
 
@@ -132,3 +154,22 @@ def plot_data(data: dict, date: str, db_date: list):
     plt.title(f'Word frequency {date}')
 
     return plt.show()
+
+def plot_flask(data: dict, date:str, db_date: list):
+
+    if date == None:
+        date = f' between {db_date[0]} - {db_date[1]}'
+
+    words = list(data.keys())
+    count = list(data.values())
+
+    # Generate the figure **without using pyplot**.
+    fig = Figure()
+    ax = fig.subplots()
+    ax.plot(words, count)
+    # Save it to a temporary buffer.
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+    # Embed the result in the html output.
+    data = base64.b64encode(buf.getbuffer()).decode("ascii")
+    return f"<img src='data:image/png;base64,{data}'/>"

@@ -10,6 +10,7 @@ from news_scraper.src.business import (
     parse_titles,
     digi24,
     plot_data,
+    plot_flask,
     get_date
     )
 from typing import Optional
@@ -121,6 +122,14 @@ class GetCountedWords:
         return (parsed_titles, date)
 
 
+class GetCountedWordsFlask:
+    def execute(self, table_name):
+        titles = GetDbTitles().execute(str(table_name))
+
+        parsed_titles = parse_titles(titles)
+        return (parsed_titles)
+
+
 class PlotData:
     def execute(self, table_name):
         clear_screen()
@@ -134,4 +143,13 @@ class PlotData:
         
         data = (get_top_words(dict(data), n))
         plot_data(data, date, db_date)
-        
+
+class PlotDataFlask:
+    def execute(self, table_name, date, num_words):
+        data = GetCountedWordsFlask().execute(table_name).items()
+
+        db_date = get_date_from_db(table_name)
+
+        data = (get_top_words(dict(data), num_words))
+
+        return plot_flask(data, date, db_date)

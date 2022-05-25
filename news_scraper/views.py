@@ -1,5 +1,6 @@
 
 from news_scraper import(app, jsonify, redirect, render_template, request, url_for, session, presentation, commands)
+from datetime import datetime
 
 
 
@@ -38,7 +39,7 @@ def go_to():
     if chosen_action == 'Add all titles to database':
         return redirect(url_for('add_to_db'))
     if chosen_action == 'Plot words count':
-        return redirect(url_for('plot'))
+        return redirect(url_for('plot_details'))
 
 
 
@@ -74,9 +75,24 @@ def search_by_keyword():
     news_list = commands.SearchKeyword().execute(scraper, keyword)
     return render_template('print_news.html', news=news_list)
 
+@app.route('/actions/plot-details')
+def plot_details():
+    page_title = 'Plot Data'
+    subtitle = 'Enter plot preferences'
+    return render_template('plot_details.html', page_title=page_title, subtitle=subtitle)
 
-@app.route('/actions/plot')
+
+@app.route('/actions/plot-details/plot', methods=['POST'])
 def plot():
-    response = commands.PlotData().execute(presentation.get_scraper())
-    return jsonify({'message': response})
+    page_title = 'Plot Results'
+
+    req = request.form
+    table_name = str(session['scraper'])
+    num_words = int(req['numwords'])
+    print(num_words)
+    date = req['dateinput']
+
+    plot_result = commands.PlotDataFlask().execute(table_name, date, num_words)
+    print(plot_result)
+    return render_template('plot.html',page_title=page_title, plot_result=plot_result )
 

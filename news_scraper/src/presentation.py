@@ -99,5 +99,4 @@ options = {
     'B': Option('Search by key word', PrintKeywords(), prep_call=get_scraper),
     'C': Option('Add all titles to database', WriteToDataBase(), prep_call=get_scraper),
     'D': Option('Plot words count', PlotData(), prep_call=get_scraper),
-    'X': Option('Exit', Exit())
 } 
