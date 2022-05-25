@@ -89,10 +89,9 @@ def plot():
     req = request.form
     table_name = str(session['scraper'])
     num_words = int(req['numwords'])
-    print(num_words)
     date = req['dateinput']
 
-    plot_result = commands.PlotDataFlask().execute(table_name, date, num_words)
-    print(plot_result)
-    return render_template('plot.html',page_title=page_title, plot_result=plot_result )
+    plot_img = commands.PlotDataFlask().execute(table_name, date, num_words)
+
+    return render_template('plot.html',page_title=page_title, plot_result=plot_img )
 

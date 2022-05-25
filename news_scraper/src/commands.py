@@ -16,6 +16,7 @@ from news_scraper.src.business import (
 from typing import Optional
 from news_scraper.src.utils import clear_screen
 import sys
+import base64
 
 
 
@@ -152,4 +153,8 @@ class PlotDataFlask:
 
         data = (get_top_words(dict(data), num_words))
 
-        return plot_flask(data, date, db_date)
+        plot_str = plot_flask(data, date, db_date)
+        plot_img = base64.b64decode((plot_str))
+
+
+        return f"<img src='data:image/png;base64,{plot_img}'/>"

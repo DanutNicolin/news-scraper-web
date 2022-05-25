@@ -12,6 +12,7 @@ from io import BytesIO
 from matplotlib.figure import Figure
 
 
+
 digi24 = Digi24()
 db = DataBaseManager('database.db')
 curent_date = str(digi24.curent_date())
@@ -166,10 +167,12 @@ def plot_flask(data: dict, date:str, db_date: list):
     # Generate the figure **without using pyplot**.
     fig = Figure()
     ax = fig.subplots()
-    ax.plot(words, count)
+    ax.plot([1, 2])
     # Save it to a temporary buffer.
     buf = BytesIO()
     fig.savefig(buf, format="png")
     # Embed the result in the html output.
     data = base64.b64encode(buf.getbuffer()).decode("ascii")
-    return f"<img src='data:image/png;base64,{data}'/>"
+    return data
+    # return f"<img src='data:image/png;base64,{data}'/>"
+    
