@@ -1,7 +1,7 @@
 
 from markupsafe import Markup
-from news_scraper import(app, jsonify, redirect, render_template, request, url_for, session, presentation, commands)
-from datetime import datetime
+from news_scraper import(app, redirect, render_template, request, url_for, session, presentation, commands)
+
 
 
 
@@ -93,6 +93,6 @@ def plot_settings():
     num_words = int(req['numwords'])
     date = str(req['dateinput'])
 
-    plot_img = Markup(commands.PlotDataFlask().execute(table_name, date, num_words))
+    plot_img = Markup(commands.PlotData().execute(table_name, date, num_words))
 
     return render_template('plot.html',page_title=page_title, plot_result=plot_img )
