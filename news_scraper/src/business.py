@@ -79,8 +79,8 @@ def get_all_titles(scraper):
     return extracted_titles
 
 
-def get_date_from_db(table_name: str):
-    db_data = db.retrieve_data(table_name)
+def get_date_from_db(table_name: str, date):
+    db_data = db.retrieve_data(table_name, date)
 
     dates = []
     for date in db_data:
@@ -156,23 +156,18 @@ def plot_data(data: dict, date: str, db_date: list):
 
     return plt.show()
 
-def plot_flask(data: dict, date:str, db_date: list):
-
-    if date == None:
-        date = f' between {db_date[0]} - {db_date[1]}'
-
+def plot_flask(data: dict, date:str):
     words = list(data.keys())
     count = list(data.values())
 
     # Generate the figure **without using pyplot**.
     fig = Figure()
     ax = fig.subplots()
-    ax.plot([1, 2])
+    ax.plot(words, count)
     # Save it to a temporary buffer.
     buf = BytesIO()
     fig.savefig(buf, format="png")
     # Embed the result in the html output.
     data = base64.b64encode(buf.getbuffer()).decode("ascii")
-    return data
-    # return f"<img src='data:image/png;base64,{data}'/>"
+    return f"<img src='data:image/png;base64,{data}'/>"
     

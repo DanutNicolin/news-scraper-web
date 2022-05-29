@@ -117,15 +117,15 @@ class GetCountedWords:
     def execute(self, table_name):
         clear_screen()
         date = GetDate().execute()
-        titles = GetDbTitles().execute(str(table_name), date)
+        titles = GetDbTitles().execute(str(table_name))
 
         parsed_titles = parse_titles(titles)
         return (parsed_titles, date)
 
 
 class GetCountedWordsFlask:
-    def execute(self, table_name):
-        titles = GetDbTitles().execute(str(table_name))
+    def execute(self, table_name, date):
+        titles = GetDbTitles().execute(str(table_name),date)
 
         parsed_titles = parse_titles(titles)
         return (parsed_titles)
@@ -147,14 +147,13 @@ class PlotData:
 
 class PlotDataFlask:
     def execute(self, table_name, date, num_words):
-        data = GetCountedWordsFlask().execute(table_name).items()
 
-        db_date = get_date_from_db(table_name)
+        data = GetCountedWordsFlask().execute(table_name, date).items()
+        if len(data) < 1:
+            return f'No tites saved in date: {date}'
 
         data = (get_top_words(dict(data), num_words))
 
-        plot_str = plot_flask(data, date, db_date)
-        plot_img = base64.b64decode((plot_str))
 
-
-        return f"<img src='data:image/png;base64,{plot_img}'/>"
+        plot_str = plot_flask(data, date)
+        return plot_str

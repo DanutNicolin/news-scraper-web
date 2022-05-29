@@ -1,4 +1,5 @@
 
+from markupsafe import Markup
 from news_scraper import(app, jsonify, redirect, render_template, request, url_for, session, presentation, commands)
 from datetime import datetime
 
@@ -75,6 +76,7 @@ def search_by_keyword():
     news_list = commands.SearchKeyword().execute(scraper, keyword)
     return render_template('print_news.html', news=news_list)
 
+
 @app.route('/actions/plot-details')
 def plot_details():
     page_title = 'Plot Data'
@@ -83,15 +85,14 @@ def plot_details():
 
 
 @app.route('/actions/plot-details/plot', methods=['POST'])
-def plot():
+def plot_settings():
     page_title = 'Plot Results'
 
     req = request.form
     table_name = str(session['scraper'])
     num_words = int(req['numwords'])
-    date = req['dateinput']
+    date = str(req['dateinput'])
 
-    plot_img = commands.PlotDataFlask().execute(table_name, date, num_words)
+    plot_img = Markup(commands.PlotDataFlask().execute(table_name, date, num_words))
 
     return render_template('plot.html',page_title=page_title, plot_result=plot_img )
-
