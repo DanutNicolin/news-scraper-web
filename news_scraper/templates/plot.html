@@ -5,9 +5,10 @@
 {% endblock %}
 
 {% block content %}
-    <img src="{{ url_for('static', filename='assets/News.png')}}"><br>
+    <div class="plot">
+        {{ plot_result }}
+    </div>
 
-
-    {{ plot_result }}
-
+    <a href="/" class="go-home-button"> Go home</a>
+    
 {% endblock %}

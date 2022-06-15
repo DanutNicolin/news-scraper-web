@@ -80,6 +80,11 @@ def plot(data: dict, date:str):
 
     # Generate the figure **without using pyplot**.
     fig = Figure()
+    if (len(words) < 8) and (len(count) < 5.5):
+        fig.set_size_inches(8,5.5)
+    else:
+        fig.set_size_inches(len(words),len(count))
+
     ax = fig.subplots()
     ax.plot(words, count)
     # Save it to a temporary buffer.

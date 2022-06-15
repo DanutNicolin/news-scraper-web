@@ -5,18 +5,20 @@
 News scraper
 {% endblock %}
 
-{% block content%}
-    <img src="{{ url_for('static', filename='assets/News.png')}}">
+{% block header%}
     <h2> {{title}}</h2>
     <h3>{{subtitle}}</h3>
+{% endblock%}
 
+{% block content%}
     <form action="/actions" method="POST">
 
-        <ul class="buttons">
-            {%for name in options%}
-            <li> <input type = "submit" name ='option' value="{{name}}"/> </li>
-            {% endfor %}
-        </ul>
+        <!-- {%for name in options%}
+        <p class="buttons"> <input type = "submit" name ='option' value="{{name}}"/> </p>
+        {% endfor %} -->
+        {% for name in options %}
+            <button class="buttons" value="{{name}}" name="option">{{name}}</button>
+        {% endfor %}
 
     </form>
 {% endblock%}

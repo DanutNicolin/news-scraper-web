@@ -4,21 +4,21 @@
 {{page_title}}
 {% endblock %}
 
-{% block content %}
-    <img src="{{ url_for('static', filename='assets/News.png')}}">
-
+{% block header%}
     <h3>{{subtitle}}</h3>
+{% endblock%}
 
-    <form action="/actions/plot-details/plot" method="POST">
+{% block content %}
+
+    <form class="input-form" action="/actions/plot-details/plot" method="POST">
         <label for="numwords"> Number of words</label><br>
         <input type="number" name="numwords" value=""><br><br>
 
-        <label for="dateinput"> Date or date range</label><br>
+        <label for="dateinput"> Date</label><br>
         <input type="text" name="dateinput" value=""><br>
 
-         <input type="submit" value="Submit"><br><br>
+        <input type="submit" value="Submit"><br><br>
     </form>
 
-    <a href="/" class="goback"> Go home</a>
-
+    <a href="/" class="go-home-button"> Go home</a>
 {% endblock %}

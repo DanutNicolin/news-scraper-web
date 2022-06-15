@@ -55,14 +55,14 @@ def print_news():
     return render_template('print_news.html', title=title, news=news_list)
 
 
-@app.route('/actions/add-to-db')
+@app.route('/actions/add-to-db/')
 def add_to_db():
     scraper = session['scraper']
     response = commands.WriteToDataBase().execute(presentation.make_scraper(scraper))
     return render_template('succes_page.html', news_outlet=scraper, added=response['titles not in db'], existing=response['titles in db'])
 
 
-@app.route('/actions/keyword')
+@app.route('/actions/keyword/')
 def keyword():
     subtitle = 'Enter keyword you want to search'
     return render_template('search.html', subtitle=subtitle)
@@ -77,14 +77,14 @@ def search_by_keyword():
     return render_template('print_news.html', news=news_list)
 
 
-@app.route('/actions/plot-details')
+@app.route('/actions/plot-details/')
 def plot_details():
     page_title = 'Plot Data'
     subtitle = 'Enter plot preferences'
     return render_template('plot_details.html', page_title=page_title, subtitle=subtitle)
 
 
-@app.route('/actions/plot-details/plot', methods=['POST'])
+@app.route('/actions/plot-details/plot/', methods=['POST'])
 def plot_settings():
     page_title = 'Plot Results'
 

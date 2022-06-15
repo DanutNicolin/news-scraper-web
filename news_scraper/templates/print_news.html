@@ -4,11 +4,14 @@
 Todays News
 {% endblock %}
 
+{% block header%}
+{% endblock%}
+
 {% block content%}
-    <ul>
+    <ul class="news-print">
         {%for name in news%}
         <li>{{ name }}</li>
         {% endfor %}
     </ul>
-    <a href="/" class="goback"> Go home</a>
+    <a href="/" class="go-home-button"> Go home</a>
 {% endblock%}

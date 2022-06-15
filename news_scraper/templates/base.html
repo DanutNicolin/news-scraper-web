@@ -13,10 +13,26 @@
 
 
 <body>
-    <div class="wrapper">
-    {% block content %}
+    <div class="content-wraper">
+        <div class="header">
+            <img src="{{ url_for('static', filename='assets/News.png')}}" class="banner-img">
+            <div class="nav-bar">
+            </div>
 
-    {% endblock %}
+        </div>
+
+        <div class="content"> 
+            {% block header %}
+            {% endblock %}
+            <div class="text">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+
     </div>
 </body>
 

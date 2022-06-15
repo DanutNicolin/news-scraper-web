@@ -4,16 +4,16 @@
 Search by keyword
 {% endblock %}
 
-{% block content %}
-    <img src="{{ url_for('static', filename='assets/News.png')}}">
-
+{% block header%}
     <h3>{{subtitle}}</h3>
+{% endblock%}
 
-    <form action="/actions/keyword/search-by-keyword" method="POST">
+{% block content %}
+    <form class="input-form-search"action="/actions/keyword/search-by-keyword" method="POST">
         <label for="keyword"></label><br>
         <input type="text" name="keyword" value=""><br>
+        <input type="submit" value="Submit"><br><br>
     </form>
 
-    <a href="/" class="goback"> Go home</a>
-
+    <a href="/" class="go-home-button"> Go home</a>
 {% endblock %}
